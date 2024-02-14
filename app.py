@@ -447,6 +447,19 @@ def gastos_hormida(id_usuario):
     print(categorias_gastos_hormiga_lista)
     return categorias_gastos_hormiga_lista
 
+
+@app.route('/gastosMes/<int:id_usuario>', methods=['GET'])
+def modelo_mes(id_usuario):
+    # Llamar a la función para cargar datos y entrenar el modelo
+    prediccion_gastos_siguiente_mes = gastos_mes(id_usuario)
+    return jsonify({"futuro": prediccion_gastos_siguiente_mes})
+
+@app.route('/gastosHormiga/<int:id_usuario>', methods=['GET'])
+def modelo_hormiga(id_usuario):
+    # Llamar a la función para cargar datos y entrenar el modelo
+    categorias_gastos_hormiga_lista = gastos_hormida(id_usuario)
+    return jsonify({"gastos_hormida": categorias_gastos_hormiga_lista} )
+
 @app.route('/gastosCategoria/<int:id_usuario>', methods=['GET'])
 def modelo_categoria(id_usuario):
     # Llamar a la función para cargar datos y entrenar el modelo
@@ -462,19 +475,6 @@ def modelo_categoria(id_usuario):
     }
     
     return jsonify(resultado)
-
-@app.route('/gastosMes/<int:id_usuario>', methods=['GET'])
-def modelo_mes(id_usuario):
-       # Llamar a la función para cargar datos y entrenar el modelo
-       prediccion_gastos_siguiente_mes = gastos_mes(id_usuario)
-       return jsonify({"futuro": prediccion_gastos_siguiente_mes})
-
-@app.route('/gastosHormiga/<int:id_usuario>', methods=['GET'])
-def modelo_hormiga(id_usuario):
-       # Llamar a la función para cargar datos y entrenar el modelo
-      categorias_gastos_hormiga_lista = gastos_hormida(id_usuario)
-      return jsonify({"gastos_hormida": categorias_gastos_hormiga_lista} )
-
 
 if __name__ == '__main__':
     app.run(debug=True)
